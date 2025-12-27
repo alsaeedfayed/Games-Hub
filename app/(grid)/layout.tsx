@@ -1,4 +1,5 @@
 import GridContainer from "../components/defaults/GridContainer";
+import SideBar from "../components/nav/SideBar";
 
 export default function RootLayout({
   children,
@@ -6,10 +7,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="grid h-screen text-black">
+    <main className="grid h-screen background">
       <GridContainer cols={12}>
-        <div className="bg-red-300 col-span-2">sidebar</div>
-        <div className="bg-blue-300 col-span-10">{children}</div>
+        <div className=" col-span-2">
+          <SideBar />
+        </div>
+        <div className="col-span-10">{children}</div>
       </GridContainer>
     </main>
   );
