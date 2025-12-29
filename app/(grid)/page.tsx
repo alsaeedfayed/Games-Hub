@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <div>
-      <h1>Welcome to the Gaming App!</h1>
-    </div>
-  );
+  return <div></div>;
 }

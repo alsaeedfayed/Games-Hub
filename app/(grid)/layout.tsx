@@ -1,4 +1,6 @@
 import GridContainer from "../components/defaults/GridContainer";
+import MaxWidthWrapper from "../components/defaults/MaxWidthWrapper";
+import NavBar from "../components/nav/NavBar";
 import SideBar from "../components/nav/SideBar";
 
 export default function RootLayout({
@@ -12,7 +14,10 @@ export default function RootLayout({
         <div className=" col-span-2">
           <SideBar />
         </div>
-        <div className="col-span-10">{children}</div>
+        <MaxWidthWrapper className="col-span-10">
+          <NavBar />
+          {children}
+        </MaxWidthWrapper>
       </GridContainer>
     </main>
   );

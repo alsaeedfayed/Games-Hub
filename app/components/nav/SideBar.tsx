@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import { BsFillPeopleFill } from "react-icons/bs";
 import NavLink from "./NavLink";
 import Logo from "../defaults/Logo";
+import ButtonGame from "../defaults/ButtonGame";
 
 export type NavBarItem = {
   label: string;
