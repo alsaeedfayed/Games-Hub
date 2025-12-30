@@ -7,6 +7,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import FormInput from "../FormInput";
+import MotionItem from "../defaults/MotionItem";
+import MaxWidthWrapper from "../defaults/MaxWidthWrapper";
+import Logo from "../defaults/Logo";
+import Link from "next/link";
 //schema for form validation using ZOD
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -29,27 +33,51 @@ const Login = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormInput
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          description="ex : alsaeedfayed@gmail.com"
-        />
-        <FormInput
-          label="Password"
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-          description="Your password must be strong"
-        />
-        <Button variant={"destructive"} type="submit">
-          Login
-        </Button>
-      </form>
-    </Form>
+    <MotionItem animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 30 }}>
+      <MaxWidthWrapper className="bg-black/40 rounded-2xl border-1 border-white/10 shadow-lg w-full flex flex-col items-center max-w-md">
+        <Logo />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4 p-6 md:p-10 w-full"
+          >
+            <FormInput
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              description="ex : alsaeedfayed@gmail.com"
+            />
+            <FormInput
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              description="Your password must be strong"
+            />
+            <Button
+              className="cursor-pointer"
+              variant={"destructive"}
+              type="submit"
+            >
+              Login
+            </Button>
+          </form>
+          <div className="flex items-center gap-4">
+            <p>Do not have an account? </p>{" "}
+            <Link href={"/signup"}>
+              <Button
+                className="cursor-pointer text-rose-500 "
+                variant={"default"}
+                size={"sm"}
+              >
+                Register Now
+              </Button>
+            </Link>
+          </div>
+        </Form>
+      </MaxWidthWrapper>
+    </MotionItem>
   );
 };
 

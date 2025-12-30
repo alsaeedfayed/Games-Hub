@@ -33,7 +33,12 @@ const FormInput = ({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input type={type} placeholder={placeholder} {...field} />
+            <Input
+              className="text-base text-white"
+              type={type}
+              placeholder={placeholder}
+              {...field}
+            />
           </FormControl>
           <FormDescription>{description}</FormDescription>
           <FormMessage />
