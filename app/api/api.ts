@@ -1,17 +1,22 @@
 import { APIURL, KEY } from "../constants";
+import { IGamesResponse } from "../models/games.model";
 
 const fetchFn = (url: string, cache?: number) =>
+  //using nextjs 13 fetch with revalidate option cache for ssr 1 hour default then send request to api // that makes it static for 1 hour
   fetch(url, { next: { revalidate: cache || 3600 } }).then((res) => res.json());
-export const searchGames = async function (
+
+export const searchGames = async (
   query?: string,
   page = 1,
   filters?: { filterName: string; option: string }[],
-  page_size = 20
-) {
-  const data = await fetchFn(
+  page_size = 20,
+  cache: number = 0
+) => {
+  const data: IGamesResponse = await fetchFn(
     `${APIURL}games?search=${query}&page_size=${page_size}&page=${page}&${filters
       ?.map((filter: any) => `${filter.filterName}=${filter.option}&`)
-      .join("")}&key=${KEY}`
+      .join("")}&key=${KEY}`,
+    cache
   );
   const count = data.count;
 

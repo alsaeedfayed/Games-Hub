@@ -42,8 +42,11 @@ export const NAV_LINKS: NavBarItem[] = [
 ];
 const SideBar = () => {
   return (
-    <div className="col-span-2">
-      <div className="py-5 px-10 h-screen flex flex-col items-start sticky inset-0 text-gray-50 bg-black/30">
+    <div className="col-span-2" style={{ height: "100%" }}>
+      <div
+        style={{ height: "100%" }}
+        className="py-5 px-10   flex flex-col items-start sticky inset-0 text-gray-50 bg-black/30"
+      >
         <Logo />
         {NAV_LINKS.map((navLink) => (
           <NavLink key={navLink.link} navLink={navLink} />

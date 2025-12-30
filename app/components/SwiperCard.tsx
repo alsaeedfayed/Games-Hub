@@ -40,7 +40,7 @@ const SwiperCards = ({
         spaceBetween={20}
         slidesPerView={slidesPerView || 1}
         className={` w-full relative ${className || " h-96"}`}
-        onSlideChange={() => console.log("slide change")}
+        onSlideChange={() => {}}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
         {items.map(({ card }, i) => (

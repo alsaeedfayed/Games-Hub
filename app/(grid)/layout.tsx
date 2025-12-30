@@ -9,9 +9,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="grid h-screen background">
+    <main className="grid background">
       <GridContainer cols={12}>
-        <div className=" col-span-2">
+        <div style={{ height: "100%" }} className="col-span-2 ">
           <SideBar />
         </div>
         <MaxWidthWrapper className="col-span-10">
