@@ -11,20 +11,34 @@ import MotionItem from "../defaults/MotionItem";
 import MaxWidthWrapper from "../defaults/MaxWidthWrapper";
 import Logo from "../defaults/Logo";
 import Link from "next/link";
+import { FileUploadDemo } from "../FileUpload";
 //schema for form validation using ZOD
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters" }),
-});
-const Login = () => {
+const loginSchema = z
+  .object({
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters" }),
+    name: z.string().min(5, { message: "Name must be at least 5 characters" }),
+    avatar: z.any().optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+const Register = () => {
   //react hook form setup with zod resolver
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
+      name: "",
+      avatar: null,
     },
   });
   //submit
@@ -34,13 +48,21 @@ const Login = () => {
 
   return (
     <MotionItem animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 30 }}>
-      <MaxWidthWrapper className="bg-black/40 rounded-2xl border-1 border-white/10 shadow-lg w-full md:w-xl flex flex-col items-center">
+      <MaxWidthWrapper className="bg-black/80 rounded-2xl border-1 border-white/10 shadow-lg w-full md:w-xl flex flex-col items-center">
         <Logo />
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4 p-6 md:p-10 w-full"
           >
+            <FileUploadDemo name="avatar" />
+            <FormInput
+              label="Name"
+              name="name"
+              type="text"
+              placeholder="Enter your name"
+              description="ex : alsaeedfayed"
+            />
             <FormInput
               label="Email"
               name="email"
@@ -55,23 +77,30 @@ const Login = () => {
               placeholder="Enter your password"
               description="Your password must be strong"
             />
+            <FormInput
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+              description="Your password must Match"
+            />
             <Button
               className="cursor-pointer"
               variant={"destructive"}
               type="submit"
             >
-              Login
+              Register
             </Button>
           </form>
           <div className="flex items-center gap-4">
-            <p>Do not have an account? </p>{" "}
-            <Link href={"/signup"}>
+            <p>already have an account? </p>{" "}
+            <Link href={"/login"}>
               <Button
                 className="cursor-pointer text-rose-500 "
                 variant={"default"}
                 size={"sm"}
               >
-                Register Now
+                Login Now
               </Button>
             </Link>
           </div>
@@ -81,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
