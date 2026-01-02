@@ -1,0 +1,67 @@
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 260px;
+    padding: 12px 16px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    z-index: 9999;
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+}
+
+.loading {
+    background-color: #84abd2;
+}
+
+.success {
+    background-color: #16a34a;
+}
+
+.error {
+    background-color: #dc2626;
+}
+
+/* Progress bar container */
+.progress {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 4px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Moving line */
+.progressBar {
+    height: 100%;
+    background: white;
+    transform-origin: right;
+    animation-name: shrink;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes shrink {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
