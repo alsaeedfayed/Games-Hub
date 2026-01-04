@@ -1,5 +1,6 @@
 import React from "react";
 import Register from "../components/forms/Register";
+import PublicRouteGuard from "../components/defaults/PublicRouteGuard";
 
 const SignUp = () => {
   return (
@@ -12,7 +13,9 @@ const SignUp = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <Register />
+      <PublicRouteGuard>
+        <Register />
+      </PublicRouteGuard>
     </main>
   );
 };

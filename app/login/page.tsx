@@ -1,5 +1,6 @@
 import React from "react";
 import Login from "../components/forms/Login";
+import PublicRouteGuard from "../components/defaults/PublicRouteGuard";
 
 const LogIn = () => {
   return (
@@ -12,7 +13,9 @@ const LogIn = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <Login />
+      <PublicRouteGuard>
+        <Login />
+      </PublicRouteGuard>
     </main>
   );
 };

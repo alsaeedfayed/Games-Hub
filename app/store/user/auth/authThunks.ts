@@ -24,6 +24,7 @@ export const loginUser = createAsyncThunk(
       // Successfully logged in , save in localStorage and return payload
       const userData = result.data;
       localStorage.setItem("user", JSON.stringify(userData));
+      document.cookie = "dummy_token=1; path=/"; // dummy token for now to use for middleware
       return userData;
     } catch (error: any) {
       return rejectWithValue(error.message || "Network error");
