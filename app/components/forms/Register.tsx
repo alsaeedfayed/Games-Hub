@@ -50,7 +50,11 @@ const Register = () => {
     duration: 3000,
   });
 
-  const showToast = (message, type, duration = 3000) => {
+  const showToast = (
+    message: string,
+    type: "success" | "error" | "loading",
+    duration = 3000
+  ) => {
     setToast({ show: true, message, type, duration });
   };
 
@@ -106,7 +110,6 @@ const Register = () => {
     console.log("Payload for user sign up:", payload);
     //perform registration logic here
     if (payload) {
-      console.log("Registering user with payload:", USER_CREATE);
       try {
         const res = await fetch(USER_CREATE, {
           method: "POST",

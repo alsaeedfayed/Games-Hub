@@ -22,3 +22,20 @@ export interface UserSocialDetails {
   instagramHandle: string;
   twitterHandle: string;
 }
+
+export interface IUserLogin {
+  EmailId: string;
+  Password: string;
+}
+
+export interface ILoginApiResponse {
+  message: string;
+  result: boolean;
+  data: UserData;
+}
+export interface UserData {
+  userId: number;
+  emailId: string;
+  token: string;
+  refreshToken: string;
+}

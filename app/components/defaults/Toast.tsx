@@ -8,6 +8,12 @@ export default function Toast({
   show,
   duration = 3000,
   onClose,
+}: {
+  message: string;
+  type: "success" | "error" | "loading";
+  show: boolean;
+  duration?: number;
+  onClose: () => void;
 }) {
   useEffect(() => {
     if (type !== "loading" && show) {
