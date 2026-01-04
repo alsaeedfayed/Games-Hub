@@ -1,6 +1,6 @@
 import { IAuthState, UserData } from "@/app/models/user.model";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginUser } from "./authThunks";
+import { loadUserFromStorage, loginUser } from "./authThunks";
 
 const initialState: IAuthState = {
   user: null,
@@ -41,6 +41,12 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(loadUserFromStorage.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.user = action.payload;
+          state.isAuthenticated = true;
+        }
       });
   },
 });

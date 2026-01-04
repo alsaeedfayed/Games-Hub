@@ -1,5 +1,5 @@
 import { USER_LOGIN } from "@/app/constants";
-import { ILoginApiResponse } from "@/app/models/user.model";
+import { ILoginApiResponse, UserData } from "@/app/models/user.model";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const loginUser = createAsyncThunk(
@@ -21,10 +21,21 @@ export const loginUser = createAsyncThunk(
       }
 
       const result: ILoginApiResponse = await response.json();
-      // Successfully logged in , return payload
-      return result.data;
+      // Successfully logged in , save in localStorage and return payload
+      const userData = result.data;
+      localStorage.setItem("user", JSON.stringify(userData));
+      return userData;
     } catch (error: any) {
       return rejectWithValue(error.message || "Network error");
     }
+  }
+);
+
+export const loadUserFromStorage = createAsyncThunk(
+  "auth/loadUserFromStorage",
+  async () => {
+    const stored = localStorage.getItem("user");
+    if (!stored) return null;
+    return JSON.parse(stored) as UserData;
   }
 );
