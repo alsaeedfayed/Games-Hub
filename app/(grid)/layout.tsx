@@ -2,6 +2,7 @@ import GridContainer from "../components/defaults/GridContainer";
 import MaxWidthWrapper from "../components/defaults/MaxWidthWrapper";
 import NavBar from "../components/nav/NavBar";
 import SideBar from "../components/nav/SideBar";
+import { ReduxProvider } from "../providers";
 
 export default function RootLayout({
   children,
@@ -16,7 +17,7 @@ export default function RootLayout({
         </div>
         <MaxWidthWrapper className="col-span-10">
           <NavBar />
-          {children}
+          <ReduxProvider>{children}</ReduxProvider>
         </MaxWidthWrapper>
       </GridContainer>
     </main>

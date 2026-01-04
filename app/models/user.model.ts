@@ -39,3 +39,10 @@ export interface UserData {
   token: string;
   refreshToken: string;
 }
+
+export interface IAuthState {
+  user: UserData | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  error: string | null;
+}

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import FormInput from "../FormInput";
@@ -15,6 +15,9 @@ import { USER_LOGIN } from "@/app/constants";
 import { useRouter } from "next/navigation";
 import { ILoginApiResponse } from "@/app/models/user.model";
 import Toast from "../defaults/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/index";
+import { loginUser } from "@/app/store/user/auth/authThunks";
 //schema for form validation using ZOD
 const loginSchema = z.object({
   EmailId: z.string().email({ message: "Invalid email address" }),
@@ -35,6 +38,11 @@ const Login = () => {
     setToast((prev) => ({ ...prev, show: false }));
   };
   const router = useRouter();
+  //using store
+  const dispatch = useDispatch<AppDispatch>();
+  const { error, isAuthenticated, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
   //react hook form setup with zod resolver
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -52,54 +60,36 @@ const Login = () => {
       duration: 0,
     });
 
-    const hideToast = () => {
-      setToast((prev) => ({ ...prev, show: false }));
-    };
     if (data) {
-      try {
-        const res = await fetch(USER_LOGIN, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // REQUIRED for cookies
-
-          body: JSON.stringify({
-            EmailId: data.EmailId,
-            Password: data.Password,
-          }),
-        });
-        const result: ILoginApiResponse = await res.json();
-        //success
-        if (res.ok) {
-          setToast({
-            show: true,
-            message: "Login successful!",
-            type: "success",
-            duration: 1500,
-          });
-          //console.log("Login successful:", result);
-          //credentials: "include", // REQUIRED for cookies
-          localStorage.setItem("user", JSON.stringify(result.data));
-          setTimeout(() => {
-            router.push("/");
-          }, 1500);
-        } else {
-          //error from server
-          console.error("Registration failed:", result);
-        }
-      } catch (error: any) {
+      const res = await dispatch(loginUser(data));
+      if (loginUser.fulfilled.match(res)) {
         setToast({
           show: true,
-          message: error.message,
+          message: "Login successfull!",
+          type: "success",
+          duration: 1500,
+        });
+      } else {
+        setToast({
+          show: true,
+          message: (res.payload as string) || "Login failed",
           type: "error",
           duration: 3000,
         });
-      } finally {
-        //setLoading(false);
       }
     }
   };
+
+  //effecct to auth state change
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const timeout = setTimeout(() => {
+      router.push("/");
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [isAuthenticated, router]);
 
   return (
     <>
