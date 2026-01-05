@@ -4,6 +4,7 @@ import Image from "next/image";
 import SwiperCards from "./SwiperCard";
 import { IGame } from "../models/games.model";
 import Heading from "./Heading";
+import AddToWishList from "./AddToWishList";
 
 const GamesSlider = ({
   games,
@@ -39,6 +40,7 @@ const GamesSlider = ({
                     <h1 className=" text-xl border-b-2 border-neutral-100 w-full pb-3 font-semibold text-white">
                       {game.name}
                     </h1>
+                    <AddToWishList gameId={game.id.toString()} />
                     <p className=" text-sm line-clamp-4 text-gray-100 pt-3">
                       {game.description_raw}
                     </p>
