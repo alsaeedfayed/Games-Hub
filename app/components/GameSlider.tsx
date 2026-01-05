@@ -40,7 +40,7 @@ const GamesSlider = ({
                     <h1 className=" text-xl border-b-2 border-neutral-100 w-full pb-3 font-semibold text-white">
                       {game.name}
                     </h1>
-                    <AddToWishList gameId={game.id.toString()} />
+
                     <p className=" text-sm line-clamp-4 text-gray-100 pt-3">
                       {game.description_raw}
                     </p>
@@ -73,6 +73,7 @@ const GamesSlider = ({
                   >
                     {game.name}
                   </Link>
+                  <AddToWishList gameId={game.id.toString()} />
                 </div>
               ),
             };

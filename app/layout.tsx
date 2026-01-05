@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReduxProvider } from "./providers";
 import AuthInit from "./AuthInit";
 import QueryProvider from "@/lib/QueryProvider";
+import { WishlistProvider } from "./contexts/WishListContext";
 
 //Add Montserrat font
 const montserrat = Montserrat({
@@ -23,12 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} antialiased`}>
-        <QueryProvider>
-          <ReduxProvider>
-            <AuthInit />
-            {children}
-          </ReduxProvider>
-        </QueryProvider>
+        <WishlistProvider>
+          <QueryProvider>
+            <ReduxProvider>
+              <AuthInit />
+              {children}
+            </ReduxProvider>
+          </QueryProvider>
+        </WishlistProvider>
       </body>
     </html>
   );

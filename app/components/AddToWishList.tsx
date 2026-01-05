@@ -1,30 +1,20 @@
 "use client";
 import React from "react";
-import UseLocalStorageState from "../hooks/UseLocalStorageState";
 import { Button } from "@/components/ui/button";
+import { useWishlist } from "../contexts/WishListContext";
 
 const AddToWishList = ({ gameId }: { gameId: string }) => {
-  const [wishListLocal, setWishListLocal] = UseLocalStorageState(
-    "wishList",
-    []
-  );
-  const isInWishList = wishListLocal.includes(gameId);
-  const handleAddToWishList = () => {
-    if (isInWishList) {
-      setWishListLocal(wishListLocal.filter((id: string) => id !== gameId));
-    } else {
-      setWishListLocal([...wishListLocal, gameId]);
-    }
-    console.log(wishListLocal);
-  };
+  const { toggle, isInWishlist } = useWishlist();
+  const inWishlist = isInWishlist(gameId);
+
   return (
     <Button
-      onClick={handleAddToWishList}
+      onClick={() => toggle(gameId)}
       className={`px-4 py-2 rounded ${
-        isInWishList ? "bg-red-500 text-white" : "bg-gray-300 text-black"
+        inWishlist ? "bg-red-500 text-white" : "bg-gray-300 text-black"
       }`}
     >
-      {isInWishList ? "Remove from Wish List" : "Add to Wish List"}
+      {inWishlist ? "Remove from Wish List" : "Add to Wish List"}
     </Button>
   );
 };
