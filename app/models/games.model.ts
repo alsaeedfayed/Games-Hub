@@ -34,6 +34,7 @@ export interface IGame {
   tags?: TagsEntity[] | null;
   esrb_rating: PlatformOrEsrbRating;
   short_screenshots?: ShortScreenshotsEntity[] | null;
+  description_raw?: string;
 }
 export interface RatingsEntity {
   id: number;
