@@ -40,3 +40,12 @@ export const loadUserFromStorage = createAsyncThunk(
     return JSON.parse(stored) as UserData;
   }
 );
+
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  // Clear user from localStorage
+  localStorage.removeItem("user");
+  document.cookie =
+    "dummy_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Delete dummy token
+  // Optionally, you can also make a request to the backend to invalidate the session
+  return;
+});

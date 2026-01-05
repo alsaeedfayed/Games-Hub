@@ -22,6 +22,7 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.loading = false;
+      localStorage.removeItem("user");
     },
     setLoading(state: IAuthState, action: PayloadAction<boolean>) {
       state.loading = action.payload;
