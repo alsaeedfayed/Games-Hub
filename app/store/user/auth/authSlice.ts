@@ -23,6 +23,9 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
       localStorage.removeItem("user");
+      document.cookie =
+        "dummy_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Delete dummy token
+      // Optionally, you can also make a request to the backend to invalidate the session
     },
     setLoading(state: IAuthState, action: PayloadAction<boolean>) {
       state.loading = action.payload;

@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "./providers";
 import AuthInit from "./AuthInit";
+import QueryProvider from "@/lib/QueryProvider";
 
 //Add Montserrat font
 const montserrat = Montserrat({
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} antialiased`}>
-        <ReduxProvider>
-          <AuthInit />
-          {children}
-        </ReduxProvider>
+        <QueryProvider>
+          <ReduxProvider>
+            <AuthInit />
+            {children}
+          </ReduxProvider>
+        </QueryProvider>
       </body>
     </html>
   );
