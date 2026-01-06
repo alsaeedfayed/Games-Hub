@@ -53,6 +53,9 @@ const GamesSlider = ({
                       alt={game.name}
                     />
                   </div>
+                  <div className="absolute top-2.5 right-2">
+                    <AddToWishList gameId={game.id.toString()} />
+                  </div>
                 </div>
               ) : (
                 <div className=" relative cursor-pointer group">
@@ -73,7 +76,9 @@ const GamesSlider = ({
                   >
                     {game.name}
                   </Link>
-                  <AddToWishList gameId={game.id.toString()} />
+                  <div className="absolute top-3.5 right-2.5">
+                    <AddToWishList gameId={game.id.toString()} />
+                  </div>
                 </div>
               ),
             };

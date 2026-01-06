@@ -23,7 +23,7 @@ export const searchGames = async (
   return { data, count };
 };
 
-export const getGame = async function (id: string) {
+export const getGame = async function (id: string | number) {
   try {
     const data = await fetchFn(`${APIURL}games/${id}?key=${KEY}`); //details
     const screenshots = await fetchFn(
