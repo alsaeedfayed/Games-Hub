@@ -1,4 +1,4 @@
-import { APIURL, KEY } from "../constants";
+import { APIURL } from "../constants";
 import { IGamesResponse } from "../models/games.model";
 
 const fetchFn = (url: string, cache?: number) =>
@@ -15,7 +15,7 @@ export const searchGames = async (
   const data: IGamesResponse = await fetchFn(
     `${APIURL}games?search=${query}&page_size=${page_size}&page=${page}&${filters
       ?.map((filter: any) => `${filter.filterName}=${filter.option}&`)
-      .join("")}&key=${KEY}`,
+      .join("")}&key=${process.env.NEXT_PUBLIC_API_KEY}`,
     cache
   );
   const count = data.count;
@@ -25,12 +25,14 @@ export const searchGames = async (
 
 export const getGame = async function (id: string | number) {
   try {
-    const data = await fetchFn(`${APIURL}games/${id}?key=${KEY}`); //details
+    const data = await fetchFn(
+      `${APIURL}games/${id}?key=${process.env.NEXT_PUBLIC_API_KEY}`
+    ); //details
     const screenshots = await fetchFn(
-      `${APIURL}games/${id}/screenshots?&key=${KEY}`
+      `${APIURL}games/${id}/screenshots?&key=${process.env.NEXT_PUBLIC_API_KEY}`
     ); //screenshots
     const similar = await fetchFn(
-      `${APIURL}games/${id}/game-series?key=${KEY}`
+      `${APIURL}games/${id}/game-series?key=${process.env.NEXT_PUBLIC_API_KEY}`
     ); //simimlar
     return { data, screenshots, similar };
   } catch (err) {
@@ -40,7 +42,7 @@ export const getGame = async function (id: string | number) {
 
 export const getGameFromgenres = async function (genre = "51") {
   const data = await fetchFn(
-    `${APIURL}games?genres=${genre}&page_size=15&key=${KEY}`
+    `${APIURL}games?genres=${genre}&page_size=15&key=${process.env.API_KEY}`
   );
   return data;
 };
@@ -49,7 +51,7 @@ export const gamebyplatforms = async (id: string, page = 1, page_size = 20) => {
   const data = await fetchFn(
     `${APIURL}games?platforms=${id}&page_size=${
       page_size || 40
-    }&page=${page}&key=${KEY}`
+    }&page=${page}&key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   return data;
 };
